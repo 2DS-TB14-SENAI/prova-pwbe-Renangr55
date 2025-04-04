@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criação de item</title>
+</head>
+<body>
+    <h1> Criação de consultas</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div class="forms">
+        <ul>
+            {% for item in items %}
+            <li>
+                {{ item.nome }} - {{item_descricao}}
+                <a href="{% url 'item_update' item.pk %}">Editar</a>
+                <a href="{% url 'item_delete' item.pk %}">Deletar</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+</body>
+</html>

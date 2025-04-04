@@ -1,0 +1,134 @@
+{% extends 'clinica/base.html' %}
+
+{% block title %}Lista de médicos{% endblock %}
+
+{% block content %}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Estilos gerais */
+    body {
+        background-color: #f5f5f5;
+        color: #333;
+    }
+
+    /* Header */
+    header {
+        background-color: #222;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+    }
+
+    header form {
+        display: flex;
+        gap: 10px;
+    }
+
+    header input {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        width: 250px;
+    }
+
+    header button {
+        padding: 10px 15px;
+        background-color: #ff4c00;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    header button:hover {
+        background-color: #e04300;
+    }
+
+    /* Grid de carros */
+    .medico-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 40px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    /* Card do carro */
+    .medico-card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+
+    .medico-card:hover {
+        transform: scale(1.05);
+    }
+
+
+
+    .medico-card h2 {
+        font-size: 20px;
+        margin: 10px 0;
+        color: #222;
+    }
+
+    .medico-card p {
+        font-size: 16px;
+        color: #666;
+        font-weight: bold;
+    }
+
+    /* Nenhum resultado */
+    .no-result {
+        text-align: center;
+        font-size: 18px;
+        color: #999;
+        margin-top: 20px;
+    }
+
+    /* Footer */
+    footer {
+        background-color: #222;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        margin-top: 40px;
+    }
+</style>
+
+<h1>médicos disponíveis</h1>
+
+<!-- Formulário de pesquisa -->
+<form method="GET" action="{% url 'listar_medicos' %}">
+    <input type="text" name="search" placeholder="Buscar Médico...">
+    <button type="submit">Buscar</button>
+</form>
+
+<div class="medico-grid">
+    {% if medicos %}
+        {% for medico in cars %}
+            <div class="medico-card">
+                <h2>{{ medico.name }} {{ medico.especialidade }}</h2>
+                <p>{{ medico.crm }} - {{ medico.email }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-result">Nenhum Médico encontrado.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
